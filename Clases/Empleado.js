@@ -1,0 +1,22 @@
+class Empleado{
+    constructor(
+        IDEmpleado,
+		NombreEmpleado,
+		ApePatEmpleado,
+        ApeMatEmpleado,
+        CorreoEmpleado,
+        TelefonoEmpleado,
+        Username,
+        Contraseña
+    ){
+        this.IDEmpleado,
+		this.NombreEmpleado,
+		this.ApePatEmpleado,
+        this.ApeMatEmpleado,
+        this.CorreoEmpleado,
+        this.TelefonoEmpleado,
+        this.Username,
+        this.Contraseña
+    }
+}
+module.exports=Empleado;

@@ -1,0 +1,22 @@
+class Mecanico{
+    constructor(
+        IDMecanico,
+		NombreMecanico,
+		ApePatMecanico,
+        ApeMatMecanico,
+        CorreoMecanico,
+        TelefonoMecanico,
+        Username,
+        Contraseña
+    ){
+        this.IDMecanico,
+		this.NombreMecanico,
+		this.ApePatMecanico,
+        this.ApeMatMecanico,
+        this.CorreoMecanico,
+        this.TelefonoMecanico
+        this.Username,
+        this.Contraseña
+    }
+}
+module.exports=Mecanico;
