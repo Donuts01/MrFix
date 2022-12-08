@@ -11,6 +11,7 @@ const Empleado=require('./Clases/Empleado');
 //Mecanicos
 const mecanicosWS=require('./mecanicosWS');
 const Mecanico=require('./Clases/Mecanico');
+
 //Clientes
 const clientesWS=require('./clientesWS');
 const Cliente=require('./Clases/Cliente');
@@ -103,6 +104,25 @@ router.route('/productos').get((request,response)=>{
         response.json(result[0])
     })
 });
+//RUTA PARA OBTENER PRODUCTOSA DE FORMA ASC POR PRECIO
+router.route('/productosAsc').get((request,response)=>{
+    productosWS.getProductosAsc().then(result=>{
+        response.json(result[0])
+    })
+});
+
+//RUTA PARA OBTENER PRODUCTOSA DE FORMA ASC POR PRECIO
+router.route('/productosDesc').get((request,response)=>{
+    productosWS.getProductosDesc().then(result=>{
+        response.json(result[0])
+    })
+});
+//RUTA PARA OBTENER PRODUCTOSA DE FORMA DESC EN NOMBRE
+router.route('/productosAlfa').get((request,response)=>{
+    productosWS.getProductosAlfa().then(result=>{
+        response.json(result[0])
+    })
+});
 
 //Ruta para obtener un Producto
 router.route('/productos/consultar/:IDProducto').get((request,response)=>{
@@ -110,6 +130,7 @@ router.route('/productos/consultar/:IDProducto').get((request,response)=>{
         response.json(result[0])
     })
 });
+
 
 //Ruta para agregar un Producto
 router.route('/productos/agregar').post((request,response)=>{
@@ -148,30 +169,26 @@ router.route('/productos/idp').get((request,response)=>{
         response.json(result[0])
     })
 });
-    //RUTA PARA OBTENER PRODUCTOSA DE FORMA ASC POR PRECIO
-router.route('/productosAsc').get((request,response)=>{
-    productosWS.getProductosAsc().then(result=>{
-    response.json(result[0])
-    })
-});
-    //RUTA PARA OBTENER PRODUCTOSA DE FORMA DESC EN NOMBRE
-router.route('/productosDesc').get((request,response)=>{
-    productosWS.getProductosDesc().then(result=>{
-        response.json(result[0])
-    })
-});
-    
-router.route('/productosAlfa').get((request,response)=>{
-    productosWS.getProductosAlfa().then(result=>{
-        response.json(result[0])
-    })
-});
-    
+
+
 //RUTAS DE EMPLEADOS
 
 //Ruta para obtener los Empleados
 router.route('/empleados').get((request,response)=>{
     empleadosWS.getEmpleados().then(result=>{
+        response.json(result[0])
+    })
+});
+
+
+router.route('/empleados/login/:Username').get((request, response) => {
+    empleadosWS.getEmpleadoUser(request.params.Username).then(result => {
+        response.json(result[0])
+    })
+});
+
+router.route('/empleados/loginc/:Contrasena').get((request, response) => {
+    empleadosWS.getEmpleadoCont(request.params.Contrasena).then(result => {
         response.json(result[0])
     })
 });
@@ -215,10 +232,9 @@ router.route('/empleados/eliminar/:IDEmpleado').get((request,response)=>{
     })
 });
 
-router.route('/empleados/login').post((request,response)=>{
-    let Empleado = {...request.body}
-    empleadosWS.getEmpleadoMov(Empleado).then(result=>{
-        response.json(result[0][0])
+router.route('/empleados/ide').get((request,response)=>{
+    empleadosWS.getIDEmpleados().then(result=>{
+        response.json(result[0])
     })
 });
 //RUTAS DE MECANICOS
@@ -230,9 +246,24 @@ router.route('/mecanicos').get((request,response)=>{
     })
 });
 
+
+
 //Ruta para obtener un MECANICO
 router.route('/mecanicos/consultar/:IDMecanico').get((request,response)=>{
     mecanicosWS.getMecanico(request.params.IDMecanico).then(result=>{
+        response.json(result[0])
+    })
+});
+
+
+router.route('/mecanicos/login/:Username').get((request, response) => {
+    mecanicosWS.getMecanicoUser(request.params.Username).then(result => {
+        response.json(result[0])
+    })
+});
+
+router.route('/mecanicos/loginc/:Contrasena').get((request, response) => {
+    mecanicosWS.getMecanicoCont(request.params.Contrasena).then(result => {
         response.json(result[0])
     })
 });
@@ -269,14 +300,18 @@ router.route('/mecanicos/eliminar/:IDMecanico').get((request,response)=>{
     })
 });
 
-router.route('/mecanicos/login').post((request,response)=>{
-    let Mecanico = {...request.body}
-    mecanicosWS.getMecanicoMov(Mecanico).then(result=>{
-        response.json(result[0][0])
+router.route('/mecanicos/idm').get((request,response)=>{
+    mecanicosWS.getIDMecanicos().then(result=>{
+        response.json(result[0])
     })
 });
 
 //RUTAS DE CLIENTES
+router.route('/ventas/last').get((request,response)=>{
+    ventasWS.getIDlast().then(result=>{
+        response.json(result[0])
+    })
+});
 
 //Ruta para obtener los clientes
 router.route('/clientes').get((request,response)=>{
@@ -284,19 +319,14 @@ router.route('/clientes').get((request,response)=>{
         response.json(result[0])
     })
 });
-//RUTA PARA OBTENER UN CLIENTE MEDIANTE SU ID POR METODO POST
-router.route('/cliente').post((request,response)=>{
-    let Cliente = {...request.body}
-        clientesWS.getClienteInf(Cliente).then(result=>{
-    response.json(result[0][0])
-    })
-});
+
 //Ruta para obtener un cliente
 router.route('/clientes/consultar/:IDCliente').get((request,response)=>{
     clientesWS.getCliente(request.params.IDCliente).then(result=>{
         response.json(result[0])
     })
 });
+
 
 //Ruta para agregar un cliente
 router.route('/clientes/agregar').post((request,response)=>{
@@ -358,6 +388,14 @@ router.route('/createUser').post((request,response)=>{
 });
 
 
+//RUTA PARA OBTENER UN CLIENTE MEDIANTE SU ID POR METODO POST
+router.route('/cliente').post((request,response)=>{
+    let Cliente = {...request.body}
+    clientesWS.getClienteInf(Cliente).then(result=>{
+        response.json(result[0][0])
+    })
+});
+
 
 // RUTAS PARA VEHICULOS
 
@@ -372,21 +410,6 @@ router.route('/vehiculos').get((request,response)=>{
 router.route('/vehiculos/consultar/:IDVehiculo').get((request,response)=>{
     vehiculosWS.getVehiculo(request.params.IDVehiculo).then(result=>{
         response.json(result[0])
-    })
-});
-
-//OBTENER VEHICULO MEDIANTE ID
-router.route('/vehiculo/consultarMov').post((request,response)=>{
-    let Vehiculo = {...request.body}
-        vehiculosWS.getVehiculo(Vehiculo.IDVehiculo).then(result=>{
-    response.json(result[0][0])
-    })
-});
-    //OBTENER VEHICULOS MEDIANTE IDCLIENTE
-router.route('/vehiculo/consultarVehiMov').post((request,response)=>{
-    let Vehiculo = {...request.body}
-        vehiculosWS.getVehiculoCliente(Vehiculo.IDCliente).then(result=>{
-    response.json(result[0])
     })
 });
 
@@ -491,18 +514,20 @@ router.route('/reparaciones').get((request,response)=>{
     })
 });
 
-//Ruta para obtener una reparacion
-router.route('/reparaciones/consultar/:IDReparacion').get((request,response)=>{
-    reparacionesWS.getReparacion(request.params.IDReparacion).then(result=>{
-        response.json(result[0])
-    })
-});
+
 
 //RUTA PARA OBTENER TODOS LAS REPARACIONES DE UN VEHICULO
 router.route('/reparacionesVehi').post((request,response)=>{
     let Reparacion = {...request.body}
-        reparacionesWS.getReparacioneVehiculo(Reparacion).then(result=>{
-            response.json(result[0])
+    reparacionesWS.getReparacioneVehiculo(Reparacion).then(result=>{
+        response.json(result[0])
+    })
+});
+
+//Ruta para obtener una reparacion
+router.route('/reparaciones/consultar/:IDReparacion').get((request,response)=>{
+    reparacionesWS.getReparacion(request.params.IDReparacion).then(result=>{
+        response.json(result[0])
     })
 });
 
@@ -537,6 +562,35 @@ router.route('/reparaciones/eliminar/:IDReparacion').get((request,response)=>{
         response.json(err.message);
     })
 });
+
+
+//RUTAS PARA APP
+//OBTENER SERVICIO POR TOKEN
+router.route('/reparaciones/consultarMov').post((request,response)=>{
+    let Reparacion = {...request.body}
+    reparacionesWS.getReparacion(Reparacion.IDReparacion).then(result=>{
+        response.json(result[0][0])
+    })
+});
+
+//OBTENER VEHICULO MEDIANTE ID
+router.route('/vehiculo/consultarMov').post((request,response)=>{
+    let Vehiculo = {...request.body}
+    vehiculosWS.getVehiculo(Vehiculo.IDVehiculo).then(result=>{
+        response.json(result[0][0])
+    })
+});
+
+//OBTENER VEHICULOS MEDIANTE IDCLIENTE
+router.route('/vehiculo/consultarVehiMov').post((request,response)=>{
+    let Vehiculo = {...request.body}
+    vehiculosWS.getVehiculoCliente(Vehiculo.IDCliente).then(result=>{
+        response.json(result[0])
+    })
+});
+
+
+
 
 // RUTAS PARA DETALLES
 
@@ -586,7 +640,7 @@ router.route('/detalles/eliminar/:IDVenta').get((request,response)=>{
     })
 });
 
-var portconn=process.env.PORT || 8080;
+var portconn=process.env.PORT || 5000;
 app.listen(portconn);
 
 console.log('fin del proceso');

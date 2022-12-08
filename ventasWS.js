@@ -101,6 +101,27 @@ async function getIDVentas(){
         console.log(err);
     }
 }
+
+async function getIDlast(){
+    try{
+        let pool=await sql.connect(conexion);
+        let salida=await pool.request().query('SELECT TOP 1 IDVenta=(IDVenta+1) FROM Ventas ORDER BY IDVenta DESC');
+        return salida.recordsets;
+    }catch(err){
+        console.log(err);
+    }
+}
+
+async function getIDlast(){
+    try{
+        let pool=await sql.connect(conexion);
+        let salida=await pool.request().query('SELECT TOP 1 IDVenta=(IDVenta+1) FROM Ventas ORDER BY IDVenta DESC');
+        return salida.recordsets;
+    }catch(err){
+        console.log(err);
+    }
+}
+
 module.exports={
     getVentas:getVentas,
     getVenta:getVenta,
@@ -108,5 +129,6 @@ module.exports={
     upVenta:upVenta,
     upTotal:upTotal,
     delVenta:delVenta,
-    getIDVentas:getIDVentas
+    getIDVentas:getIDVentas,
+    getIDlast:getIDlast
 }

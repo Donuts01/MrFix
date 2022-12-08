@@ -6,7 +6,7 @@ const conexion={
     options:  {
         trustedconnection : true,
         enableArithAbort : true,
-        encrypt : false,
+        encrypt : true,
     }
 }
 

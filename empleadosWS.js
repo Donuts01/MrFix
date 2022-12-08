@@ -12,6 +12,8 @@ async function getEmpleados(){
     }
 }
 
+
+
 //Consulta un servicio especifico
 async function getEmpleado(IDEmpleado){
     try{
@@ -37,7 +39,7 @@ async function newEmpleado(empleado){
             .input('CorreoEmpleado',sql.VarChar,empleado.CorreoEmpleado)
             .input('TelefonoEmpleado',sql.VarChar,empleado.TelefonoEmpleado)
             .input('Username',sql.VarChar,empleado.Username)
-            .input('Contraseña',sql.VarChar,empleado.Contraseña)
+            .input('Contrasena',sql.VarChar,empleado.Contrasena)
             .execute('pr_newEmpleado');
 
         return newEmpleado.recordsets;
@@ -59,7 +61,7 @@ async function upEmpleado(empleado){
             .input('CorreoEmpleado',sql.VarChar,empleado.CorreoEmpleado)
             .input('TelefonoEmpleado',sql.VarChar,empleado.TelefonoEmpleado)
             .input('Username',sql.VarChar,empleado.Username)
-            .input('Contraseña',sql.VarChar,empleado.Contraseña)
+            .input('Contrasena',sql.VarChar,empleado.Contrasena)
             .execute('pr_upEmpleado');
 
         return upEmpleado.recordsets;
@@ -68,6 +70,32 @@ async function upEmpleado(empleado){
         throw new Error ('Se presentó un error en el procedimiento almacenado actualizar e');
     }
 }
+
+
+async function getEmpleadoUser(Username) {
+    try {
+        let pool = await sql.connect(conexion);
+        let salida = await pool.request()
+            .input('Username', sql.VarChar, Username)
+            .query('select * from Empleados where Username = @Username');
+        return salida.recordsets;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+async function getEmpleadoCont(Contrasena) {
+    try {
+        let pool = await sql.connect(conexion);
+        let salida = await pool.request()
+            .input('Contrasena', sql.VarChar, Contrasena)
+            .query('select * from Empleados where Contrasena = @Contrasena');
+        return salida.recordsets;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 
 //Delete de los servicios
 async function delEmpleado(IDEmpleado){
@@ -88,8 +116,8 @@ async function getEmpleadoMov(empleado){
         let pool=await sql.connect(conexion);
         let salida=await pool.request()
         .input('Username',sql.VarChar,empleado.Username)
-        .input('Contraseña', sql.VarChar,empleado.Contraseña)
-        .query('select * from Empleados where Username= @Username AND Contraseña= @Contraseña');
+        .input('Contrasena', sql.VarChar,empleado.Contrasena)
+        .query('select * from Empleados where Username= @Username AND Contrasena= @Contrasena');
         return salida.recordsets;
     }catch(err){
         console.log(err);
@@ -98,7 +126,7 @@ async function getEmpleadoMov(empleado){
 async function getIDEmpleados(){
     try{
         let pool=await sql.connect(conexion);
-        let salida=await pool.request().query('select IDEmpleado from Empleados');
+        let salida=await pool.request().query("select IDEmpleado from Empleados");
         return salida.recordsets;
     }catch(err){
         console.log(err);
@@ -111,5 +139,7 @@ module.exports={
     upEmpleado:upEmpleado,
     delEmpleado:delEmpleado,
     getEmpleadoMov:getEmpleadoMov,
+    getEmpleadoUser: getEmpleadoUser,
+    getEmpleadoCont: getEmpleadoCont,
     getIDEmpleados:getIDEmpleados
 }

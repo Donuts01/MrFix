@@ -137,9 +137,7 @@ create procedure pr_newEmpleado
 @ApePatEmpleado varchar(30),
 @ApeMatEmpleado  varchar(30),
 @CorreoEmpleado varchar(50),
-@TelefonoEmpleado varchar(10),
-@Username varchar(50),
-@Contraseña varchar(50)
+@TelefonoEmpleado varchar(10)
 as
 begin
 /*Inserta en la bd en la tabla Servicios*/
@@ -148,18 +146,13 @@ begin
 		ApePatEmpleado,
 		ApeMatEmpleado,
 		CorreoEmpleado,
-		TelefonoEmpleado,
-		Username,
-		Contraseña
-
+		TelefonoEmpleado
 	) values (
 		@NombreEmpleado,
 		@ApePatEmpleado,
 		@ApeMatEmpleado,
 		@CorreoEmpleado,
-		@TelefonoEmpleado,
-		@Username,
-		@Contraseña
+		@TelefonoEmpleado
 	);
 end;
 go
@@ -169,8 +162,7 @@ create procedure pr_newMecanico
 @ApeMatMecanico  varchar(30),
 @CorreoMecanico varchar(50),
 @TelefonoMecanico varchar(10),
-@Username varchar(50),
-@Contraseña varchar(50)
+@Area varchar(40)
 as
 begin
 /*Inserta en la bd en la tabla Servicios*/
@@ -180,17 +172,14 @@ begin
 		ApeMatMecanico,
 		CorreoMecanico,
 		TelefonoMecanico,
-		Username,
-		Contraseña
-		
+		Area
 	) values (
 		@NombreMecanico,
 		@ApePatMecanico,
 		@ApeMatMecanico,
 		@CorreoMecanico,
 		@TelefonoMecanico,
-		@Username,
-		@Contraseña
+		@Area
 	);
 end;
 go
@@ -280,7 +269,6 @@ end;
 go
 create procedure pr_newVenta
 @FechaVenta varchar(10),
-@Total money,
 @IDCliente int,
 @IDEmpleado int
 as
@@ -288,12 +276,10 @@ begin
 /*Inserta en la bd en la tabla ventas*/
 	insert into Ventas (
 		FechaVenta,
-		Total,
 		IDCliente,
 		IDEmpleado
 	) values (
 		@FechaVenta,
-		@Total,
 		@IDCliente,
 		@IDEmpleado
 	);
@@ -343,9 +329,7 @@ create procedure pr_upEmpleado
 @ApePatEmpleado varchar(30),
 @ApeMatEmpleado  varchar(30),
 @CorreoEmpleado varchar(50),
-@TelefonoEmpleado varchar(10),
-@Username varchar(50),
-@Contraseña varchar(50)
+@TelefonoEmpleado varchar(10)
 as
 begin
 /*actualiza en la bd en la tabla Servicios*/
@@ -354,9 +338,7 @@ begin
 		ApePatEmpleado=@ApePatEmpleado,
 		ApeMatEMpleado=@ApeMatEmpleado,
 		CorreoEmpleado=@CorreoEmpleado,
-		TelefonoEmpleado=@TelefonoEmpleado,
-		Username=@Username,
-		Contraseña=@Contraseña
+		TelefonoEmpleado=@TelefonoEmpleado
 	WHERE IDEmpleado=@IDEmpleado;
 end;
 go
@@ -367,8 +349,7 @@ create procedure pr_upMecanico
 @ApeMatMecanico  varchar(30),
 @CorreoMecanico varchar(50),
 @TelefonoMecanico varchar(10),
-@Username varchar(50),
-@Contraseña varchar(50)
+@Area varchar(40)
 as
 begin
 /*actualiza en la bd en la tabla Servicios*/
@@ -378,8 +359,7 @@ begin
 		ApeMatMecanico=@ApeMatMecanico,
 		CorreoMecanico=@CorreoMecanico,
 		TelefonoMecanico=@TelefonoMecanico,
-		Username=@Username,
-		Contraseña=@Contraseña
+		Area=@Area
 	WHERE IDMecanico=@IDMecanico;
 end;
 go
@@ -455,7 +435,6 @@ go
 create procedure pr_upVenta
 @IDVenta int,
 @FechaVenta varchar(10),
-@Total money,
 @IDCliente int,
 @IDEmpleado int
 as
@@ -463,19 +442,7 @@ begin
 /*actualiza en la bd en la tabla Servicios*/
 	UPDATE Ventas
 	SET FechaVenta=@FechaVenta,
-		Total=@Total,
 		IDCliente=@IDCliente,
 		IDEmpleado=@IDEmpleado
-	WHERE IDVenta=@IDVenta;
-end;
-go
-create procedure pr_upTotal
-@IDVenta int,
-@Total money
-as
-begin
-/*actualiza en la bd en la tabla Servicios*/
-	UPDATE Ventas
-	SET Total=@Total
 	WHERE IDVenta=@IDVenta;
 end;

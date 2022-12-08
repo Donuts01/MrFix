@@ -12,6 +12,8 @@ async function getProductos(){
     }
 }
 
+
+
 //Consulta un servicio especifico
 async function getProducto(IDProducto){
     try{

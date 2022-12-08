@@ -7,7 +7,7 @@ class Mecanico{
         CorreoMecanico,
         TelefonoMecanico,
         Username,
-        Contraseña
+        Contrasena
     ){
         this.IDMecanico,
 		this.NombreMecanico,
@@ -16,7 +16,7 @@ class Mecanico{
         this.CorreoMecanico,
         this.TelefonoMecanico
         this.Username,
-        this.Contraseña
+        this.Contrasena
     }
 }
 module.exports=Mecanico;

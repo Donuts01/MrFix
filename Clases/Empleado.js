@@ -7,7 +7,7 @@ class Empleado{
         CorreoEmpleado,
         TelefonoEmpleado,
         Username,
-        Contraseña
+        Contrasena
     ){
         this.IDEmpleado,
 		this.NombreEmpleado,
@@ -16,7 +16,7 @@ class Empleado{
         this.CorreoEmpleado,
         this.TelefonoEmpleado,
         this.Username,
-        this.Contraseña
+        this.Contrasena
     }
 }
 module.exports=Empleado;

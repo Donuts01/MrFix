@@ -12,6 +12,31 @@ async function getReparaciones(){
     }
 }
 
+//CONSULTAR REPARACIONES POR IDCLIENTE
+async function getReparacionesCliente(reparacion){
+    try{
+        let pool=await sql.connect(conexion);
+        let salida=await pool.request()
+        .input('IDCliente',sql.Int,reparacion.IDCliente)
+        .query('select * from Reparaciones where IDCliente= @IDCliente');
+        return salida.recordsets;
+    }catch(err){
+        console.log(err);
+    }
+}
+//CONSULTAR REPARACIONES POR IDVEHICULO
+async function getReparacioneVehiculo(reparacion){
+    try{
+        let pool=await sql.connect(conexion);
+        let salida=await pool.request()
+        .input('IDVehiculo',sql.Int,reparacion.IDVehiculo)
+        .query('select * from Reparaciones where IDVehiculo= @IDVehiculo');
+        return salida.recordsets;
+    }catch(err){
+        console.log(err);
+    }
+}
+
 //Consulta una reparacion especifica
 async function getReparacion(IDReparacion){
     try{
@@ -19,18 +44,6 @@ async function getReparacion(IDReparacion){
         let salida=await pool.request()
         .input('IDReparacion',sql.Int,IDReparacion)
         .query('select * from Reparaciones where IDReparacion= @IDReparacion');
-        return salida.recordsets;
-    }catch(err){
-        console.log(err);
-    }
-}
-
-async function getReparacioneVehiculo(reparacion){
-    try{
-        let pool=await sql.connect(conexion);
-        let salida=await pool.request()
-        .input('IDVehiculo',sql.Int,reparacion.IDVehiculo)
-        .query('select * from Reparaciones where IDVehiculo= @IDVehiculo');
         return salida.recordsets;
     }catch(err){
         console.log(err);
@@ -92,6 +105,7 @@ async function delReparacion(IDReparacion){
 }
 module.exports={
     getReparaciones:getReparaciones,
+    getReparacionesCliente:getReparacionesCliente,
     getReparacion:getReparacion,
     getReparacioneVehiculo:getReparacioneVehiculo,
     newReparacion:newReparacion,  

@@ -26,6 +26,8 @@ async function getCliente(IDCliente){
 }
 
 
+
+
 //Insert de los productos
 async function newCliente(cliente){
     try{
@@ -38,7 +40,7 @@ async function newCliente(cliente){
             .input('CorreoCliente',sql.VarChar,cliente.CorreoCliente)
             .input('TelefonoCliente',sql.VarChar,cliente.TelefonoCliente)
             .input('Username',sql.VarChar,cliente.Username)
-            .input('Contraseña',sql.VarChar,cliente.Contraseña)
+            .input('Contrasena',sql.VarChar,cliente.Contrasena)
             .execute('pr_newCliente');
 
         return newCliente.recordsets;
@@ -60,7 +62,7 @@ async function upCliente(cliente){
             .input('CorreoCliente',sql.VarChar,cliente.CorreoCliente)
             .input('TelefonoCliente',sql.VarChar,cliente.TelefonoCliente)
             .input('Username',sql.VarChar,cliente.Username)
-            .input('Contraseña',sql.VarChar,cliente.Contraseña)
+            .input('Contrasena',sql.VarChar,cliente.Contrasena)
             .execute('pr_upCliente');
 
         return upCliente.recordsets;
@@ -93,8 +95,8 @@ async function getClienteMov(cliente){
         let pool=await sql.connect(conexion);
         let salida=await pool.request()
         .input('CorreoCliente',sql.VarChar,cliente.CorreoCliente)
-        .input('Contraseña', sql.VarChar,cliente.Contraseña)
-        .query('select * from Clientes where CorreoCliente= @CorreoCliente AND Contraseña= @Contraseña');
+        .input('Contrasena', sql.VarChar,cliente.Contrasena)
+        .query('select * from Clientes where CorreoCliente= @CorreoCliente AND Contrasena= @Contrasena');
         return salida.recordsets;
     }catch(err){
         console.log(err);
@@ -117,7 +119,7 @@ async function getClienteInf(cliente){
 async function getIDClientes(){
     try{
         let pool=await sql.connect(conexion);
-        let salida=await pool.request().query('select IDCliente from Clientes');
+        let salida=await pool.request().query("select IDCliente from Clientes");
         return salida.recordsets;
     }catch(err){
         console.log(err);
